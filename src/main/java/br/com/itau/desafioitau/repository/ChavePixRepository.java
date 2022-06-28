@@ -6,4 +6,6 @@ import br.com.itau.desafioitau.model.ChavePix;
 
 public interface ChavePixRepository extends JpaRepository<ChavePix, UUID> {
 
+	Integer countByValorChave(String valorChave);
+	
 }

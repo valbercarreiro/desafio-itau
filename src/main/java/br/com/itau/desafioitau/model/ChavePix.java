@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import br.com.itau.desafioitau.model.enums.TipoChave;
+import br.com.itau.desafioitau.model.enums.TipoPessoa;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -48,7 +52,8 @@ public class ChavePix implements Serializable {
 	private UUID id;
 	
 	@Column(name="TIPO_CHAVE")
-	private String tipoChave;
+	@Enumerated(EnumType.STRING)
+	private TipoChave tipoChave;
 	
 	@Column(name="VALOR_CHAVE")
 	private String valorChave;
@@ -69,7 +74,8 @@ public class ChavePix implements Serializable {
 	private String sobrenomeCorrentista;
 
 	@Column(name="TIPO_PESSOA")
-	private String tipoPessoa;
+	@Enumerated(EnumType.STRING)
+	private TipoPessoa tipoPessoa;
 
 	@Column(name="DATA_CRIACAO")
 	private LocalDateTime dataCriacao;
