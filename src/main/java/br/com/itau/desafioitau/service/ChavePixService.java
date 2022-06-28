@@ -3,16 +3,14 @@
  */
 package br.com.itau.desafioitau.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
-import br.com.itau.desafioitau.exceptions.ChaveJaExistenteException;
 import br.com.itau.desafioitau.model.ChavePix;
 import br.com.itau.desafioitau.model.enums.TipoPessoa;
 import br.com.itau.desafioitau.repository.ChavePixRepository;
 import br.com.itau.desafioitau.validadores.ValidaChavePessoaFisica;
 import br.com.itau.desafioitau.validadores.ValidaChavePessoaJuridica;
+import br.com.itau.desafioitau.validadores.ValidaChavePix;
 
 /**
  * @author Valber Carreiro
@@ -23,34 +21,30 @@ public class ChavePixService {
 	
 	private ChavePixRepository repository;
 	
-	private ValidaChavePessoaFisica validaPF;
-	
-	private ValidaChavePessoaJuridica validaPJ;
+	private ValidaChavePix validaChave;
 
-	public ChavePixService(ChavePixRepository repository, ValidaChavePessoaFisica validaPF, ValidaChavePessoaJuridica validaPJ) {
+	public ChavePixService(ChavePixRepository repository) {
 		this.repository = repository;
-		this.validaPF = validaPF;
-		this.validaPJ = validaPJ;
 	}
 
-	public String salvarChavePix(ChavePix chavePix) {
+	public ChavePix salvarChavePix(ChavePix chavePix) {
 		
-		boolean chaveValida = false;
 		if(chavePix.getTipoPessoa() == TipoPessoa.PESSOA_FISICA) {
-			chaveValida = this.validaPF.validarChaveCriacao(chavePix);
+			this.validaChave = new ValidaChavePessoaFisica(this);
 		} else {
-			chaveValida = this.validaPJ.validarChaveCriacao(chavePix);
+			this.validaChave = new ValidaChavePessoaJuridica(this);
 		}
-		
-		if(!chaveValida) {
-			throw new ChaveJaExistenteException();
-		}
+		this.validaChave.validaChavePix(chavePix);
 		
 		chavePix = this.repository.save(chavePix);
-		return chavePix.getValorChave();
+		return chavePix;
 	}
 	
 	public Integer countByValorChave(String valorChave) {
 		return repository.countByValorChave(valorChave);
+	}
+	
+	public Integer countByNumAgenciaNumConta(Integer numAgencia, Long numConta) {
+		return repository.countByNumAgenciaNumConta(numAgencia, numConta);
 	}
 }

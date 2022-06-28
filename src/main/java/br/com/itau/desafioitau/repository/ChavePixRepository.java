@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.itau.desafioitau.model.ChavePix;
 
 public interface ChavePixRepository extends JpaRepository<ChavePix, UUID> {
-
+	
 	Integer countByValorChave(String valorChave);
+
+	Integer countByNumAgenciaNumConta(Integer numAgencia, Long numConta);
 	
 }

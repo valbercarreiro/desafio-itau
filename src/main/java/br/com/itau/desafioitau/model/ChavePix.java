@@ -22,6 +22,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import br.com.itau.desafioitau.model.enums.TipoChave;
+import br.com.itau.desafioitau.model.enums.TipoConta;
 import br.com.itau.desafioitau.model.enums.TipoPessoa;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -59,7 +60,8 @@ public class ChavePix implements Serializable {
 	private String valorChave;
 	
 	@Column(name="TIPO_CONTA")
-	private String tipoConta;
+	@Enumerated(EnumType.STRING)
+	private TipoConta tipoConta;
 
 	@Column(name="NUM_AGENCIA")
 	private Integer numAgencia;
