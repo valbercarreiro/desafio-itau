@@ -1,4 +1,4 @@
-CREATE DATABASE desafio-itau
+CREATE DATABASE "desafio-itau"
     WITH 
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -7,19 +7,21 @@ CREATE DATABASE desafio-itau
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
     
-CREATE TABLE "public.chaves_pix" (
-	"id" serial NOT NULL,
-	"tipo_chave" serial(9) NOT NULL,
-	"valor_chave" serial(77) NOT NULL,
-	"tipo_conta" serial(10) NOT NULL,
-	"num_agencia" serial(4) NOT NULL,
-	"num_conta" serial(8) NOT NULL,
-	"nome_correntista" serial(30) NOT NULL,
-	"sobrenome_correntista" serial(45),
-	"tipo_pessoa" serial(1) NOT NULL,
-	"data_criacao" serial NOT NULL,
-	"data_atualizacao" serial NOT NULL,
-	CONSTRAINT "chaves_pix_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
+CREATE TABLE public.chaves_pix
+(
+    id uuid[],
+    tipo_chave character varying(9) NOT NULL,
+    valor_chave character varying(77) NOT NULL,
+    tipo_conta character varying(10) NOT NULL,
+    num_agencia numeric(4) NOT NULL,
+    num_conta numeric(8) NOT NULL,
+    nome_correntista character varying(30) NOT NULL,
+    sobrenome_correntista character varying(45),
+    tipo_pessoa character varying(1) NOT NULL,
+    data_criacao date NOT NULL,
+    data_atualizacao date,
+    PRIMARY KEY (id)
 );
+
+ALTER TABLE public.chaves_pix
+    OWNER to postgres;
