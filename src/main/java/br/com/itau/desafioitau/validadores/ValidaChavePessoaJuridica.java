@@ -5,6 +5,7 @@ package br.com.itau.desafioitau.validadores;
 
 import org.springframework.stereotype.Component;
 
+import br.com.itau.desafioitau.exceptions.ErroValidacaoChaveException;
 import br.com.itau.desafioitau.model.ChavePix;
 import br.com.itau.desafioitau.service.ChavePixService;
 
@@ -24,34 +25,32 @@ public class ValidaChavePessoaJuridica extends ValidaChavePix {
 		this.chavePixService = chavePixService;
 	}
 	
-	public boolean validarChaveCriacao(ChavePix chavePix) {
+	public void validarChaveCriacao(ChavePix chavePix) {
 
-		Integer quantidade = this.chavePixService.countByNumAgenciaNumConta(chavePix.getNumAgencia(), chavePix.getNumConta());
+		Integer quantidade = this.chavePixService.countByNumAgenciaAndNumConta(chavePix.getNumAgencia(), chavePix.getNumConta());
 		
 		if(quantidade < MAX_CHAVES_CONTA_AGENCIA) {
-			boolean result = true;
 			
 			switch (chavePix.getTipoChave()) {
 				case CELULAR:
-					result = new ValidaChaveCelular().validacoesCelular(chavePix.getValorChave());
+					new ValidaChaveCelular().validacoesCelular(chavePix.getValorChave());
 					break;
 				case EMAIL:
-					result = new ValidaChaveEmail().validacoesEmail(chavePix.getValorChave());
+					new ValidaChaveEmail().validacoesEmail(chavePix.getValorChave());
 					break;
 				case CNPJ:
-					result = new ValidaChaveCnpj().validacoesCnpj(chavePix.getValorChave());
+					new ValidaChaveCnpj().validacoesCnpj(chavePix.getValorChave());
 					break;
 				case ALEATORIO:
-					result = new ValidaChaveAleatoria().validacoesChaveAleatoria(chavePix.getValorChave());
+					new ValidaChaveAleatoria().validacoesChaveAleatoria(chavePix.getValorChave());
 					break;
 				default:
 					break;
 				}
 			
-			return result;
 		}
 		
-		return false;
+		throw new ErroValidacaoChaveException("Quantidade de chaves já atingida.");
 	}
 
 }

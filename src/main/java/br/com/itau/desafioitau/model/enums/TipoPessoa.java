@@ -9,17 +9,17 @@ package br.com.itau.desafioitau.model.enums;
  */
 public enum TipoPessoa {
 	
-	PESSOA_JURIDICA("PJ"),
-	PESSOA_FISICA("PF");
+	J,
+	F;
 
-    private final String descricao;
+//    private final String descricao;
     
-	private TipoPessoa(String descricao) {
-		this.descricao = descricao;
-	}
+//	private TipoPessoa(String descricao) {
+//		this.descricao = descricao;
+//	}
 
-	public String getDescricao() {
-		return descricao;
-	}
+//	public String getDescricao() {
+//		return descricao;
+//	}
 	
 }

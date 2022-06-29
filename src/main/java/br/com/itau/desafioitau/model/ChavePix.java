@@ -1,6 +1,3 @@
-/**
- * 
- */
 package br.com.itau.desafioitau.model;
 
 import java.io.Serializable;
@@ -20,6 +17,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Type;
 
 import br.com.itau.desafioitau.model.enums.TipoChave;
 import br.com.itau.desafioitau.model.enums.TipoConta;
@@ -31,7 +29,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * @author valber Carreiro
+ * @author Valber Carreiro
  *
  */
 @Table(name="CHAVES_PIX")
@@ -48,7 +46,8 @@ public class ChavePix implements Serializable {
 	private static final long serialVersionUID = 2608128091355655277L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Type(type = "pg-uuid")
 	@Column(name="ID")
 	private UUID id;
 	
@@ -85,9 +84,13 @@ public class ChavePix implements Serializable {
 	@Column(name="DATA_ATUALIZACAO")
 	private LocalDateTime dataAtualizacao;
 	
+	@Column(name="DATA_INATIVACAO")
+	private LocalDateTime dataInativacao;
+	
 	@PrePersist
 	public void prePersist() {
 		this.dataCriacao = LocalDateTime.now();
+		this.id = UUID.randomUUID();
 	}
 
 	@PreUpdate

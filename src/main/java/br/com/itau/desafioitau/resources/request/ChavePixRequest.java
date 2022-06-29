@@ -7,11 +7,17 @@ import br.com.itau.desafioitau.model.ChavePix;
 import br.com.itau.desafioitau.model.enums.TipoChave;
 import br.com.itau.desafioitau.model.enums.TipoConta;
 import br.com.itau.desafioitau.model.enums.TipoPessoa;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Valber Carreiro
  *
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChavePixRequest {
 
 	@NotNull(message = "Campo Tipo Chave Obrigatório.")
@@ -43,7 +49,7 @@ public class ChavePixRequest {
 	private TipoPessoa tipoPessoa;
 	
 	public ChavePix converter() {
-		return new ChavePix(null, tipoChave, valorChave, tipoConta, numAgencia, numConta, nomeCorrentista, sobrenomeCorrentista, tipoPessoa, null, null);
+		return new ChavePix(null, tipoChave, valorChave, tipoConta, numAgencia, numConta, nomeCorrentista, sobrenomeCorrentista, tipoPessoa, null, null, null);
 	}
 	
 }

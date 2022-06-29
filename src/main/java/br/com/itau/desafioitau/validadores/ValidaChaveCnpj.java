@@ -1,13 +1,17 @@
 package br.com.itau.desafioitau.validadores;
 
+import br.com.itau.desafioitau.exceptions.ErroValidacaoChaveException;
+
 /**
  * @author Valber Carreiro
  *
  */
 public class ValidaChaveCnpj {
 
-	public boolean validacoesCnpj(String valorChave) {
-		return isValido(valorChave);
+	public void validacoesCnpj(String valorChave) {
+		if(!isValido(valorChave)) {
+			throw new ErroValidacaoChaveException("Valor de chave CPNJ inválida.");
+		}
 	}
 
 	private boolean isValido(String str_cnpj) {

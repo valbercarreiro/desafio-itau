@@ -1,13 +1,17 @@
 package br.com.itau.desafioitau.validadores;
 
+import br.com.itau.desafioitau.exceptions.ErroValidacaoChaveException;
+
 /**
  * @author Valber Carreiro
  *
  */
 public class ValidaChaveCpf {
 
-	public boolean validacoesCpf(String valorChave) {
-		return isValidarDigitoVerificadorModulo11Base10(valorChave);
+	public void validacoesCpf(String valorChave) {
+		if(!isValidarDigitoVerificadorModulo11Base10(valorChave)) {
+			throw new ErroValidacaoChaveException("Valor de chave CPF inválido.");
+		}
 	}
 	
 	private boolean isValidarDigitoVerificadorModulo11Base10(String cpf) {

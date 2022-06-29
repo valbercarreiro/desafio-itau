@@ -1,14 +1,18 @@
 package br.com.itau.desafioitau.validadores;
 
+import br.com.itau.desafioitau.exceptions.ErroValidacaoChaveException;
+
 /**
  * @author Valber Carreiro
  *
  */
 public class ValidaChaveAleatoria {
 	
-	public boolean validacoesChaveAleatoria(String valorChave) {
+	public void validacoesChaveAleatoria(String valorChave) {
 		
-		return valorChave.length() <= 36;
+		if(!(valorChave.length() <= 36)) {
+			throw new ErroValidacaoChaveException("Valor de chave aleatória inválida.");
+		}
 		
 	}
 

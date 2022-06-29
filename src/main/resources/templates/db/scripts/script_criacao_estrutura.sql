@@ -9,7 +9,7 @@ CREATE DATABASE "desafio-itau"
     
 CREATE TABLE public.chaves_pix
 (
-    id uuid[],
+    id uuid,
     tipo_chave character varying(9) NOT NULL,
     valor_chave character varying(77) NOT NULL,
     tipo_conta character varying(10) NOT NULL,
@@ -20,6 +20,7 @@ CREATE TABLE public.chaves_pix
     tipo_pessoa character varying(1) NOT NULL,
     data_criacao date NOT NULL,
     data_atualizacao date,
+    data_inativacao date,
     PRIMARY KEY (id)
 );
 

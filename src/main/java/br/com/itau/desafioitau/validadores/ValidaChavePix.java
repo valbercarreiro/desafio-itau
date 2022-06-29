@@ -18,7 +18,7 @@ public abstract class ValidaChavePix {
 		this.chavePixService = chavePixService;
 	}
 
-	abstract boolean validarChaveCriacao(ChavePix chavePix);
+	abstract void validarChaveCriacao(ChavePix chavePix);
 
 	public boolean validaChavePix(ChavePix chavePix) {
 		
