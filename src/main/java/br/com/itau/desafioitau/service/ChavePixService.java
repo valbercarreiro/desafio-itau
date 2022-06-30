@@ -4,6 +4,7 @@
 package br.com.itau.desafioitau.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -67,13 +68,13 @@ public class ChavePixService {
 
 	public List<ChavePix> listarChaves(String id, Integer numAgencia, Long numConta, TipoChave tipoChave, String nomeCorrentista) {
 		
-		if(!regraValidaConsultaId(id, numAgencia, numConta, tipoChave, nomeCorrentista)) {
+		if(regraValidaConsultaId(id, numAgencia, numConta, tipoChave, nomeCorrentista)) {
 			throw new ErroNegocioException("Favor selecione apenas ou ID ou os demais como filtro, a combinação de ID com outro campo invalida a ação.");
-		} else if(id == null && !regraValidaConsulta(numAgencia, numConta)) {
+		} else if(id == null && regraValidaConsulta(numAgencia, numConta)) {
 			throw new ErroNegocioException("O preenchimento de um dos campos NumAgencia/NumConta, torna o preenchimento do outro obrigatório.");
 		}
 		
-		List<ChavePix> lista = Arrays.asList();
+		List<ChavePix> lista = new ArrayList<ChavePix>();
 		
 		if(id != null) {
 			lista.add(consultaPorId(id));
