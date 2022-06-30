@@ -105,5 +105,20 @@ public class ChavePixService {
 		chavePix = repository.save(chavePix);
 		return chavePix;
 	}
+
+	public ChavePix alterarChavePix(ChavePix chavePix) {
+		if(chavePix.getDataInativacao() != null) {
+			throw new ErroNegocioException("Não é possível alterar uma chave desativada.");
+		}
+		
+		if(chavePix.getTipoPessoa() == TipoPessoa.F) {
+			this.validaChave = new ValidaChavePessoaFisica(this);
+		} else {
+			this.validaChave = new ValidaChavePessoaJuridica(this);
+		}
+		this.validaChave.validaNomeSobrenome(chavePix);
+		
+		return repository.save(chavePix);
+	}
 	
 }

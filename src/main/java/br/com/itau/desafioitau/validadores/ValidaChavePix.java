@@ -3,6 +3,7 @@
  */
 package br.com.itau.desafioitau.validadores;
 
+import br.com.itau.desafioitau.exceptions.ErroNegocioException;
 import br.com.itau.desafioitau.model.ChavePix;
 import br.com.itau.desafioitau.service.ChavePixService;
 
@@ -20,16 +21,26 @@ public abstract class ValidaChavePix {
 
 	abstract void validarChaveCriacao(ChavePix chavePix);
 
-	public boolean validaChavePix(ChavePix chavePix) {
+	public void validaChavePix(ChavePix chavePix) {
 		
+		validaNomeSobrenome(chavePix);
 		Integer countByValorChave = this.chavePixService.countByValorChave(chavePix.getValorChave());
 		if(countByValorChave > 0) {
-			return false;
+			throw new ErroNegocioException("Chave já cadastrada!");
 		}
 		
 		this.validarChaveCriacao(chavePix);
 		
-		return true;
+	}
+	
+	public void validaNomeSobrenome(ChavePix chavePix) {
+		if(chavePix.getNomeCorrentista().length() > 30) {
+			throw new ErroNegocioException("Campo Nome Correntista não pode ultrapassar 30 caracteres!");
+		}
+		
+		if(chavePix.getSobrenomeCorrentista() != null && chavePix.getSobrenomeCorrentista().length() > 45) {
+			throw new ErroNegocioException("Campo Nome Correntista não pode ultrapassar 45 caracteres!");
+		}
 	}
 	
 }

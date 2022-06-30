@@ -4,7 +4,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.itau.desafioitau.model.ChavePix;
-import br.com.itau.desafioitau.model.enums.TipoChave;
 import br.com.itau.desafioitau.model.enums.TipoConta;
 import br.com.itau.desafioitau.model.enums.TipoPessoa;
 import lombok.AllArgsConstructor;
@@ -18,14 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChavePixRequest {
-
-	@NotNull(message = "Campo Tipo Chave Obrigatório.")
-	private TipoChave tipoChave;
-	
-	@NotNull(message = "Campo Valor Chave Obrigatório.")
-	@Size(max = 77, message = "O tamanho máximo para o Valor Chave é de 77 caracteres.")
-	private String valorChave;
+public class ChavePixUpdateRequest {
 	
 	@NotNull(message = "Campo Tipo Conta Obrigatório.")
 	@Size(max = 10)
@@ -49,8 +41,14 @@ public class ChavePixRequest {
 	@NotNull(message = "Campo Tipo Pessoa Obrigatório.")
 	private TipoPessoa tipoPessoa;
 	
-	public ChavePix converter() {
-		return new ChavePix(null, tipoChave, valorChave, tipoConta, numAgencia, numConta, nomeCorrentista, sobrenomeCorrentista, tipoPessoa, null, null, null);
+	public ChavePix converter(ChavePix chavePix) {
+		chavePix.setTipoConta(tipoConta);
+		chavePix.setNumAgencia(numAgencia);
+		chavePix.setNumConta(numConta);
+		chavePix.setTipoPessoa(tipoPessoa);
+		chavePix.setNomeCorrentista(nomeCorrentista);
+		chavePix.setSobrenomeCorrentista(sobrenomeCorrentista);
+		return chavePix;
 	}
 	
 }
